@@ -74,7 +74,7 @@ I don't have a windows console available so this is untested, but it should be a
 ```
 cd /D %HOMEDRIVE%%HOMEPATH%
 cd StanfordCoreNLP\stanford-corenlp-full-2018-02-27
-FOR %i IN (*.jar) DO set classpath= %classpath%;%cd%%i
+FOR %i IN (*.jar) DO set classpath= %classpath%;%cd%\%i
 ```
 
 ## Running Stanford CoreNLP Server

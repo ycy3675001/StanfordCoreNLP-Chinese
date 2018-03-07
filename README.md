@@ -49,6 +49,7 @@ Add all the .jar files to the CLASSPATH
 ### Debian-based Linux
 
 ```
+cd ~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27
 for file in `find . -name "*.jar"`; do export
 CLASSPATH="$CLASSPATH:`realpath $file`"; done
 ```
@@ -61,6 +62,7 @@ In MacOSX we don’t have the ‘realpath’ module so install as a part of GNU 
 Now we can do as in the Debian-based Linux step:
 
 ```
+cd ~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27
 for file in `find . -name "*.jar"`; do export
 CLASSPATH="$CLASSPATH:`realpath $file`"; done
 ```
@@ -68,7 +70,9 @@ CLASSPATH="$CLASSPATH:`realpath $file`"; done
 ### Windows
 
 ```
-coming soon
+cd /D %HOMEDRIVE%%HOMEPATH%
+cd StanfordCoreNLP\stanford-corenlp-full-2018-02-27
+FOR %i IN (*.jar) DO set classpath= %classpath%;%cd%%i
 ```
 
 ## Running Stanford CoreNLP Server
@@ -77,8 +81,18 @@ Run the server at the root directory, but pointing to the jar files through the 
 
 Run a server using Chinese properties
 
+### Debian-based Linux and MacOSX
+
 ```
 cd ~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27
+java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-chinese.properties -port 9000 -timeout 15000
+```
+
+### Windows
+
+```
+cd /D %HOMEDRIVE%%HOMEPATH%
+cd StanfordCoreNLP\stanford-corenlp-full-2018-02-27
 java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-chinese.properties -port 9000 -timeout 15000
 ```
 
@@ -91,7 +105,9 @@ Now for Python we use the official release of the python interface for CoreNLP a
 https://github.com/stanfordnlp/python-stanford-corenlp
 
 
-`pip install stanford-corenlp`
+```
+pip install stanford-corenlp
+```
 
 The steps below are already implemented in my StanfordCoreNLP.py, but here I explain what is behind each step.
 

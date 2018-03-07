@@ -69,6 +69,8 @@ CLASSPATH="$CLASSPATH:`realpath $file`"; done
 
 ### Windows
 
+I don't have a windows console available so this is untested, but it should be as follows:
+
 ```
 cd /D %HOMEDRIVE%%HOMEPATH%
 cd StanfordCoreNLP\stanford-corenlp-full-2018-02-27

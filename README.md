@@ -1,7 +1,10 @@
 # StanfordCoreNLP-Chinese
+
 Chinese implementation of the Python official interface for Stanford CoreNLP Java server application to parse, tokenize, part-of-speech tag Chinese texts.
 
 The Stanford NLP group have released a unified Chinese language tool called CoreNLP which acts as a parser, tokenizer, part-of-speech tagger and more. These software releases are all done in Java, and while there are python wrappers available, it is often hard to find information on how to set the software to work properly. I use nltk and langdetect and define simple functions to import easily instead of focusing on setting up the program every time.
+
+This tutorial is written for Debian-based Linux systems and MacOSX. (Will update for Windows too next).
 
 First: Java is necessary to run all these programs.
 
@@ -43,17 +46,30 @@ Following the getting started:
 
 Add all the .jar files to the CLASSPATH
 
+### Debian-based Linux
+
 ```
 for file in `find . -name "*.jar"`; do export
 CLASSPATH="$CLASSPATH:`realpath $file`"; done
 ```
 
-********
+### MacOSX
 In MacOSX we don’t have the ‘realpath’ module so install as a part of GNU coreutils with homebrew
 
 `brew install coreutils`
 
-********
+Now we can do as in the Debian-based Linux step:
+
+```
+for file in `find . -name "*.jar"`; do export
+CLASSPATH="$CLASSPATH:`realpath $file`"; done
+```
+
+### Windows
+
+```
+coming soon
+```
 
 ## Running Stanford CoreNLP Server
 

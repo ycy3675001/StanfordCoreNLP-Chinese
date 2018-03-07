@@ -119,6 +119,7 @@ The python wrapper reads all the .jar files from an environment variable called 
 I set it up directly in python while running:
 
 ```
+import os
 corenlp_home = os.path.join(os.path.expanduser('~'),'StanfordCoreNLP','stanford-corenlp-full-2018-02-27')
 os.environ['CORENLP_HOME'] = corenlp_home
 ```

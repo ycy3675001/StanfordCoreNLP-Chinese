@@ -81,9 +81,11 @@ CLASSPATH="$CLASSPATH:`realpath $file`"; done
 
 I don't have a windows console available so this is untested, but it should be as follows:
 
+Set an environment variable to the root folder called CORENLP_HOME
+
 ```
-cd /D %HOMEDRIVE%%HOMEPATH%
-cd StanfordCoreNLP\stanford-corenlp-full-2018-02-27
+CORENLP_HOME=%HOMEDRIVE%\StanfordCoreNLP\stanford-corenlp-full-2018-10-05
+cd %CORENLP_HOME%
 FOR %i IN (*.jar) DO set classpath= %classpath%;%cd%\%i
 ```
 
@@ -96,15 +98,14 @@ Run a server using Chinese properties
 ### Debian-based Linux and MacOSX
 
 ```
-cd ~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27
+cd $CORENLP_HOME
 java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-chinese.properties -port 9000 -timeout 15000
 ```
 
 ### Windows
 
 ```
-cd /D %HOMEDRIVE%%HOMEPATH%
-cd StanfordCoreNLP\stanford-corenlp-full-2018-02-27
+cd %CORENLP_HOME%
 java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-chinese.properties -port 9000 -timeout 15000
 ```
 

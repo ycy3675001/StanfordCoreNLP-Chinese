@@ -25,32 +25,40 @@ http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 Previous standalone Stanford NLP software is being deprecated and suggest using the new and integrated CoreNLP server tool
 
-Download CoreNLP 3.9.1 
+Download CoreNLP 3.9.1 and Unzip it somewhere:
 
-http://nlp.stanford.edu/software/stanford-corenlp-full-2018-02-27.zip
+```
+cd /usr/local/
+mkdir StanfordCoreNLP
+cd StanfordCoreNLP
 
-Unzip it somewhere:
+wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
+unzip stanford-corenlp-full-2018-10-05.zip
+cd stanford-corenlp-full-2018-10-05
+```
 
-`~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27`
+The root folder is then:
+
+`/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05`
 
 Also download Chinese models
-http://nlp.stanford.edu/software/stanford-chinese-corenlp-2018-02-27-models.jar
+`wget http://nlp.stanford.edu/software/stanford-chinese-corenlp-2018-10-05-models.jar`
 
-AND PUT IT IN THE ROOT FOLDER 
-
-`~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27/stanford-chinese-corenlp-2018-02-27-models.jar`
+You can confirm the links and versions in the follwing link:
 
 https://stanfordnlp.github.io/CoreNLP/download.html 
 
 Following the getting started:
 
-Add all the .jar files to the CLASSPATH
+Add all the .jar files to the CLASSPATH and the root folder to CORENLP_HOME
 
 ### Debian-based Linux
 
+add the following to `/etc/environment`
+
 ```
-cd ~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27
-for file in `find . -name "*.jar"`; do export
+CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05"
+for file in `find $CORENLP_HOME -name "*.jar"`; do export
 CLASSPATH="$CLASSPATH:`realpath $file`"; done
 ```
 
@@ -61,12 +69,13 @@ In MacOSX we don’t have the ‘realpath’ module so install as a part of GNU 
 
 Now we can do as in the Debian-based Linux step:
 
+add the following to `/etc/environment`
+
 ```
-cd ~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27
-for file in `find . -name "*.jar"`; do export
+CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05"
+for file in `find $CORENLP_HOME -name "*.jar"`; do export
 CLASSPATH="$CLASSPATH:`realpath $file`"; done
 ```
-
 ### Windows
 
 I don't have a windows console available so this is untested, but it should be as follows:
@@ -120,8 +129,7 @@ I set it up directly in python while running:
 
 ```
 import os
-corenlp_home = os.path.join(os.path.expanduser('~'),'StanfordCoreNLP','stanford-corenlp-full-2018-02-27')
-os.environ['CORENLP_HOME'] = corenlp_home
+corenlp_home = os.environ['CORENLP_HOME']
 ```
 
 ### Properties from StanfordCoreNLP-chinese.properties

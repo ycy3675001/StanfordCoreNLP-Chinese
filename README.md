@@ -137,7 +137,7 @@ corenlp_home = os.environ['CORENLP_HOME']
 ### Properties from StanfordCoreNLP-chinese.properties
 
 We need to get the java properties file and convert it to a python dictionary that the wrapper program can read.
-The properties file is inside ~/StanfordCoreNLP/stanford-corenlp-full-2018-02-27/stanford-chinese-corenlp-2018-02-27-models.jar
+The properties file is inside the chinese models .jar `$CORENLP_HOME/stanford-chinese-corenlp-2018-10-05-models.jar`
 So we need to unzip it and find it.
 After editing the file it looks like this:
 
@@ -182,6 +182,7 @@ properties = {'annotators':('tokenize' 'ssplit' 'pos' 'lemma' 'ner' 'parse' 'men
 	'kbp.model':None,
 	'entitylink.wikidict':'edu/stanford/nlp/models/kbp/wikidict_chinese.tsv.gz'}
 ```
+
 
 ### Library import 
 

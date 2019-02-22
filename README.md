@@ -25,8 +25,9 @@ http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 Previous standalone Stanford NLP software is being deprecated and suggest using the new and integrated CoreNLP server tool
 
-Download CoreNLP 3.9.1 and Unzip it somewhere:
+Download CoreNLP 3.9.2 and Unzip it somewhere:
 
+(Debian-based Linux and MacOS X)
 ```
 cd /usr/local/
 mkdir StanfordCoreNLP
@@ -37,11 +38,11 @@ unzip stanford-corenlp-full-2018-10-05.zip
 cd stanford-corenlp-full-2018-10-05
 ```
 
-The root folder is then:
+The root folder is then, for example:
 
 `/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05`
 
-Also download Chinese models
+Also download Chinese models to the root folder above:
 `wget http://nlp.stanford.edu/software/stanford-chinese-corenlp-2018-10-05-models.jar`
 
 You can confirm the links and versions in the follwing link:

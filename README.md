@@ -55,7 +55,7 @@ Add all the .jar files to the CLASSPATH and the root folder to CORENLP_HOME
 
 ### Debian-based Linux
 
-add the following to `/etc/environment`
+add the following to `/etc/profile` for system wide installation or to `~/.bash_profile` for user installation
 
 ```
 CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05"
@@ -70,7 +70,7 @@ In MacOSX we don’t have the ‘realpath’ module so install as a part of GNU 
 
 Now we can do as in the Debian-based Linux step:
 
-add the following to `/etc/environment`
+add the following to `/etc/profile` for system wide installation or to `~/.bash_profile` for user installation
 
 ```
 CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05"

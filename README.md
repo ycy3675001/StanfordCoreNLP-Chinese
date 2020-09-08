@@ -1,8 +1,8 @@
-# StanfordCoreNLP-Chinese
+# StanfordCoreNLP Chinese and English
 
-Chinese implementation of the Python official interface for Stanford CoreNLP Java server application to parse, tokenize, part-of-speech tag Chinese texts.
+Implementation of the Python official interface for Stanford CoreNLP Java server application to parse, tokenize, part-of-speech tag Chinese and English texts.
 
-The Stanford NLP group have released a unified Chinese language tool called CoreNLP which acts as a parser, tokenizer, part-of-speech tagger and more. These software releases are all done in Java, and while there are python wrappers available, it is often hard to find information on how to set the software to work properly. I use nltk and langdetect and define simple functions to import easily instead of focusing on setting up the program every time.
+The Stanford NLP group have released a unified language tool called CoreNLP which acts as a parser, tokenizer, part-of-speech tagger and more. They have different models for a few languages, but I use Chinese and English. These software releases are all done in Java, and while there are python wrappers available, it is often hard to find information on how to set the software to work properly. I use nltk and langdetect and define simple functions to import easily instead of focusing on setting up the program every time.
 
 This tutorial is written for Debian-based Linux systems and MacOSX. (Will update for Windows too next).
 
@@ -23,9 +23,9 @@ http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 ## Install Stanford CoreNLP
 
-Previous standalone Stanford NLP software is being deprecated and suggest using the new and integrated CoreNLP server tool
+Previous standalone Stanford NLP software is being deprecated and suggest using the new and integrated CoreNLP server tool.
 
-Download CoreNLP 3.9.2 and Unzip it somewhere:
+Download CoreNLP 4.1.0 and Unzip it somewhere:
 
 (Debian-based Linux and MacOS X)
 ```
@@ -33,17 +33,18 @@ cd /usr/local/
 mkdir StanfordCoreNLP
 cd StanfordCoreNLP
 
-wget http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip
-unzip stanford-corenlp-full-2018-10-05.zip
-cd stanford-corenlp-full-2018-10-05
+wget http://nlp.stanford.edu/software/stanford-corenlp-latest.zip
+unzip stanford-corenlp-latest.zip
+cd stanford-corenlp-4.1.0
 ```
 
 The root folder is then, for example:
 
-`/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05`
+`/usr/local/StanfordCoreNLP/stanford-corenlp-4.1.0`
 
-Also download Chinese models to the root folder above:
-`wget http://nlp.stanford.edu/software/stanford-chinese-corenlp-2018-10-05-models.jar`
+Also download Chinese and English models to the root folder above:
+`wget http://nlp.stanford.edu/software/stanford-corenlp-4.1.0-models-chinese.jar`
+`wget http://nlp.stanford.edu/software/stanford-corenlp-4.1.0-models-english.jar`
 
 You can confirm the links and versions in the follwing link:
 
@@ -58,7 +59,7 @@ Add all the .jar files to the CLASSPATH and the root folder to CORENLP_HOME
 add the following to `/etc/profile` for system wide installation or to `~/.bash_profile` for user installation
 
 ```
-CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05"
+CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-4.1.0"
 for file in `find $CORENLP_HOME -name "*.jar"`; do export
 CLASSPATH="$CLASSPATH:`realpath $file`"; done
 ```
@@ -73,7 +74,7 @@ Now we can do as in the Debian-based Linux step:
 add the following to `/etc/profile` for system wide installation or to `~/.bash_profile` for user installation
 
 ```
-CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-full-2018-10-05"
+CORENLP_HOME="/usr/local/StanfordCoreNLP/stanford-corenlp-4.1.0"
 for file in `find $CORENLP_HOME -name "*.jar"`; do export
 CLASSPATH="$CLASSPATH:`realpath $file`"; done
 ```
@@ -84,7 +85,7 @@ I don't have a windows console available so this is untested, but it should be a
 Set an environment variable to the root folder called CORENLP_HOME
 
 ```
-CORENLP_HOME=%HOMEDRIVE%\StanfordCoreNLP\stanford-corenlp-full-2018-10-05
+CORENLP_HOME=%HOMEDRIVE%\StanfordCoreNLP\stanford-corenlp-4.1.0
 cd %CORENLP_HOME%
 FOR %i IN (*.jar) DO set classpath= %classpath%;%cd%\%i
 ```
@@ -109,7 +110,7 @@ cd %CORENLP_HOME%
 java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-chinese.properties -port 9000 -timeout 15000
 ```
 
-Voilà! You now have Stanford CoreNLP server running on your machine... as a java server.
+Voilà! You now have a Stanford CoreNLP server running on your machine... as a java server.
 
 ## Python setup environment
 
@@ -145,42 +146,42 @@ After editing the file it looks like this:
 # properties set to chinese
 # properties from StanfordCoreNLP-chinese.properties
 properties = {'annotators':('tokenize' 'ssplit' 'pos' 'lemma' 'ner' 'parse' 'mention' 'coref'),
-	'tokenize.language':'zh',
-	'segment.model':'edu/stanford/nlp/models/segmenter/chinese/ctb.gz',
-	'segment.sighanCorporaDict':'edu/stanford/nlp/models/segmenter/chinese',
-	'segment.serDictionary':'edu/stanford/nlp/models/segmenter/chinese/dict-chris6.ser.gz',
-	'segment.sighanPostProcessing':True,
-	'ssplit.boundaryTokenRegex':'[.。]|[!?！？]+',
-	'pos.model':'edu/stanford/nlp/models/pos-tagger/chinese-distsim/chinese-distsim.tagger',
-	'ner.language':'chinese',
-	'ner.model':'edu/stanford/nlp/models/ner/chinese.misc.distsim.crf.ser.gz',
-	'ner.applyNumericClassifiers':True,
-	'ner.useSUTime':False,
-	'regexner.mapping':'edu/stanford/nlp/models/kbp/cn_regexner_mapping.tab',
-	'regexner.validpospattern':'^(NR|NN|JJ).*',
-	'regexner.ignorecase':True,
-	'regexner.noDefaultOverwriteLabels':'CITY',
-	'parse.model':'edu/stanford/nlp/models/srparser/chineseSR.ser.gz',
-	'depparse.model':'edu/stanford/nlp/models/parser/nndep/UD_Chinese.gz',
-	'depparse.language':'chinese',
-	'coref.sieves':('ChineseHeadMatch' 'ExactStringMatch' 'PreciseConstructs' 'StrictHeadMatch1' 'StrictHeadMatch2' 'StrictHeadMatch3' 'StrictHeadMatch4' 'PronounMatch'),
-	'coref.input.type':'raw',
-	'coref.postprocessing':True,
-	'coref.calculateFeatureImportance':False,
-	'coref.useConstituencyTree':True,
-	'coref.useSemantics':False,
-	'coref.algorithm':'hybrid',
-	'coref.path.word2vec':'',
-	'coref.language':'zh',
-	'coref.defaultPronounAgreement':True,
-	'coref.zh.dict':'edu/stanford/nlp/models/dcoref/zh-attributes.txt.gz',
-	'coref.print.md.log':False,
-	'coref.md.type':'RULE',
-	'coref.md.liberalChineseMD':False,
-	'kbp.semgrex':'edu/stanford/nlp/models/kbp/chinese/semgrex',
-	'kbp.tokensregex':'edu/stanford/nlp/models/kbp/chinese/tokensregex',
-	'kbp.model':None,
-	'entitylink.wikidict':'edu/stanford/nlp/models/kbp/wikidict_chinese.tsv.gz'}
+    'tokenize.language':'zh',
+    'segment.model':'edu/stanford/nlp/models/segmenter/chinese/ctb.gz',
+    'segment.sighanCorporaDict':'edu/stanford/nlp/models/segmenter/chinese',
+    'segment.serDictionary':'edu/stanford/nlp/models/segmenter/chinese/dict-chris6.ser.gz',
+    'segment.sighanPostProcessing':True,
+    'ssplit.boundaryTokenRegex':'[.。]|[!?！？]+',
+    'pos.model':'edu/stanford/nlp/models/pos-tagger/chinese-distsim/chinese-distsim.tagger',
+    'ner.language':'chinese',
+    'ner.model':'edu/stanford/nlp/models/ner/chinese.misc.distsim.crf.ser.gz',
+    'ner.applyNumericClassifiers':True,
+    'ner.useSUTime':False,
+    'regexner.mapping':'edu/stanford/nlp/models/kbp/cn_regexner_mapping.tab',
+    'regexner.validpospattern':'^(NR|NN|JJ).*',
+    'regexner.ignorecase':True,
+    'regexner.noDefaultOverwriteLabels':'CITY',
+    'parse.model':'edu/stanford/nlp/models/srparser/chineseSR.ser.gz',
+    'depparse.model':'edu/stanford/nlp/models/parser/nndep/UD_Chinese.gz',
+    'depparse.language':'chinese',
+    'coref.sieves':('ChineseHeadMatch' 'ExactStringMatch' 'PreciseConstructs' 'StrictHeadMatch1' 'StrictHeadMatch2' 'StrictHeadMatch3' 'StrictHeadMatch4' 'PronounMatch'),
+    'coref.input.type':'raw',
+    'coref.postprocessing':True,
+    'coref.calculateFeatureImportance':False,
+    'coref.useConstituencyTree':True,
+    'coref.useSemantics':False,
+    'coref.algorithm':'hybrid',
+    'coref.path.word2vec':'',
+    'coref.language':'zh',
+    'coref.defaultPronounAgreement':True,
+    'coref.zh.dict':'edu/stanford/nlp/models/dcoref/zh-attributes.txt.gz',
+    'coref.print.md.log':False,
+    'coref.md.type':'RULE',
+    'coref.md.liberalChineseMD':False,
+    'kbp.semgrex':'edu/stanford/nlp/models/kbp/chinese/semgrex',
+    'kbp.tokensregex':'edu/stanford/nlp/models/kbp/chinese/tokensregex',
+    'kbp.model':None,
+    'entitylink.wikidict':'edu/stanford/nlp/models/kbp/wikidict_chinese.tsv.gz'}
 ```
 
 I added this dictionary to the `StanfordCoreNLP.py` file, so it should not be necessary for you.
@@ -197,4 +198,4 @@ sys.path.append(os.path.abspath(PersonalLibraries_path))
 import StanfordCoreNLP
 ```
 
-Now we can freely call the methods in this library and parse Chinese text from python.
+Now we can freely call the methods in this library and parse Chinese and English text from python.

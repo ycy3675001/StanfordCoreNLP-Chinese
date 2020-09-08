@@ -44,6 +44,7 @@ The root folder is then, for example:
 
 Also download Chinese and English models to the root folder above:
 ```
+cd /usr/local/StanfordCoreNLP/stanford-corenlp-4.1.0
 wget http://nlp.stanford.edu/software/stanford-corenlp-4.1.0-models-chinese.jar
 wget http://nlp.stanford.edu/software/stanford-corenlp-4.1.0-models-english.jar
 ```
